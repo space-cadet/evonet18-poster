@@ -1,20 +1,13 @@
+%\title{LaTeX Portrait Poster Template}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Jacobs Portrait Poster
+% a0poster Portrait Poster
 % LaTeX Template
-% Version 1.0 (31/08/2015)
-% (Based on Version 1.0 (29/03/13) of the landscape template
+% Version 1.0 (22/06/13)
 %
-% Created by:
-% Computational Physics and Biophysics Group, Jacobs University
-% https://teamwork.jacobs-university.de:8443/confluence/display/CoPandBiG/LaTeX+Poster
+% The a0poster class was created by:
+% Gerlinde Kettl and Matthias Weiser (tex@kettl.de)
 % 
-% Further modified by:
-% Nathaniel Johnston (nathaniel@njohnston.ca)
-%
-% Portrait version by:
-% John Hammersley
-%
-% The landscape version of this template was downloaded from:
+% This template has been downloaded from:
 % http://www.LaTeXTemplates.com
 %
 % License:
@@ -26,362 +19,447 @@
 %   PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
 %----------------------------------------------------------------------------------------
 
-\documentclass[final]{beamer}
+\documentclass[a0,portrait]{a0poster}
 
-\usepackage[scale=1.24]{beamerposter} % Use the beamerposter package for laying out the poster
+\usepackage{multicol} % This is so we can have multiple columns of text side-by-side
+\columnsep=100pt % This is the amount of white space between the columns in the poster
+\columnseprule=3pt % This is the thickness of the black line between the columns in the poster
 
-\usetheme{confposter} % Use the confposter theme supplied with this template
+\usepackage[svgnames]{xcolor} % Specify colors by their 'svgnames', for a full list of all colors available see here: http://www.latextemplates.com/svgnames-colors
 
-\setbeamercolor{block title}{fg=ngreen,bg=white} % Colors of the block titles
-\setbeamercolor{block body}{fg=black,bg=white} % Colors of the body of blocks
-\setbeamercolor{block alerted title}{fg=white,bg=dblue!70} % Colors of the highlighted block titles
-\setbeamercolor{block alerted body}{fg=black,bg=dblue!10} % Colors of the body of highlighted blocks
-% Many more colors are available for use in beamerthemeconfposter.sty
+%\usepackage[colorgrid,texcoord]{eso-pic}
 
-%-----------------------------------------------------------
-% Define the column widths and overall poster size
-% To set effective sepwid, onecolwid and twocolwid values, first choose how many columns you want and how much separation you want between columns
-% In this template, the separation width chosen is 0.024 of the paper width and a 4-column layout
-% onecolwid should therefore be (1-(# of columns+1)*sepwid)/# of columns e.g. (1-(4+1)*0.024)/4 = 0.22
-% Set twocolwid to be (2*onecolwid)+sepwid = 0.464
-% Set threecolwid to be (3*onecolwid)+2*sepwid = 0.708
+\usepackage{times} % Use the times font
+%\usepackage{palatino} % Uncomment to use the Palatino font
 
-\newlength{\sepwid}
-\newlength{\onecolwid}
-\newlength{\twocolwid}
-\newlength{\threecolwid}
-\setlength{\paperwidth}{36in} % A0 width: 46.8in
-\setlength{\paperheight}{48in} % A0 height: 33.1in
-\setlength{\sepwid}{0.024\paperwidth} % Separation width (white space) between columns
-\setlength{\onecolwid}{0.22\paperwidth} % Width of one column
-\setlength{\twocolwid}{0.464\paperwidth} % Width of two columns
-\setlength{\threecolwid}{0.708\paperwidth} % Width of three columns
-\setlength{\topmargin}{-0.5in} % Reduce the top margin size
-%-----------------------------------------------------------
+\usepackage{graphicx} % Required for including images
+\graphicspath{{figures/}} % Location of the graphics files
+\usepackage{booktabs} % Top and bottom rules for table
+\usepackage[font=small,labelfont=bf]{caption} % Required for specifying captions to tables and figures
+\usepackage{amsfonts, amsmath, amsthm, amssymb} % For math fonts, symbols and environments
+\usepackage{wrapfig} % Allows wrapping text around tables and figures
 
-\usepackage{graphicx}  % Required for including images
-
-\usepackage{booktabs} % Top and bottom rules for tables
+% apparently longtable package does not work in multi-column mode.
+% use either xtab or supertabular instead
+% Reference: https://tex.stackexchange.com/a/161455/2064
+%\usepackage{supertabular,booktabs}
+%\usepackage{longtable, booktabs}
+\usepackage{xtab, booktabs}
 
 \graphicspath{{figures/}}
 
 %----------------------------------------------------------------------------------------
-%   TITLE SECTION 
+%	BIBLIOGRAPHY
 %----------------------------------------------------------------------------------------
 
-\title{Arrow of Time from \\ Spontaneous Symmetry Breaking in LQG} % Poster title
+% Biblatex setup
+% The default is the 'numerical' style.
+\usepackage[backend=biber,url=false,eprint=true,doi=true,sorting=none,backref=true]{biblatex}
+%\usepackage[backend=bibtex,url=false,eprint=true,doi=true,sorting=none,backref=true]{biblatex}
+% We use the following bibliography databases:
+\addbibresource{../../articles/timesarrow/timesarrow.bib}
 
-\author{Deepak Vaid} % Author(s)
+% % % Custom Commands
+\newcommand{\bite}{\begin{itemize}}
+\newcommand{\eat}{\end{itemize}}
+\newcommand{\beq}{\begin{equation}}
+\newcommand{\eeq}{\end{equation}}
+\newcommand{\rarrow}{\rightarrow}
+%\newcommand{\bra}{\langle}
+%\newcommand{\ket}{\rangle}
+\newcommand{\beqa}{\begin{align}}
+\newcommand{\eeqa}{\end{align}}
+\newcommand{\barr}{\begin{array}}
+\newcommand{\earr}{\end{array}}
+\newcommand{\del}{\partial}
+\newcommand{\de}{\mathrm{d}}
+%\newcommand{\mu\nu}{{\mu\nu}}
+\renewcommand{\th}{\mathrm{th}}
+\newcommand{\com}[1]{\begin{itemize}\color{RED}{{#1}}\end{itemize}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\btw}[1]{\color{PURPLE}{{#1}}\color{BLACK}}
+\newcommand{\cut}[1]{\color{RED}{{#1}}\color{BLACK}}
 
-\institute{Department of Physics, National Institute of Technology Karnataka (NITK), India} % Institution(s)
+%text
+\newcommand{\ie}{\textit{i.e.}~}
+\newcommand{\eg}{\textit{e.g.}~}
+\newcommand{\wrt}{\textit{w.r.t.}~}
+\newcommand{\etc}{\textit{etc.}~}
 
-%----------------------------------------------------------------------------------------
+
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\N}{\mathcal{N}}
+% \newcommand{\H}{\mathcal{H}}
+
+\newcommand{\mb}[1]{\mathbf{#1}}
+\newcommand{\mc}[1]{\mathcal{#1}}
+\newcommand{\mbb}[1]{\mathbb{#1}}
+\newcommand{\mf}[1]{\mathfrak{#1}}
+
+\newcommand{\vect}[1]{\boldsymbol{#1}}
+\newcommand{\expect}[1]{\langle #1\rangle}
+\newcommand{\innerp}[2]{\langle #1 \vert #2 \rangle}
+%\newcommand{\fullbra}[1]{\langle #1 \vert}
+%\newcommand{\ket}[1]{\vert #1 \rangle}
+\newcommand{\bra}[1]{\langle #1 \vert}
+\newcommand{\ket}[1]{\vert #1 \rangle}
+\newcommand{\supersc}[1]{$^{\textrm{#1}}$}
+\newcommand{\subsc}[1]{$_{\textrm{#1}}$}
+\newcommand{\sltwoc}{\mathfrak{sl}(2,\mathbb{C})}
+
+\newcommand{\Tr}{\mathrm{Tr}}
+
+% % %
 
 \begin{document}
 
-\addtobeamertemplate{block end}{}{\vspace*{2ex}} % White space under blocks
-\addtobeamertemplate{block alerted end}{}{\vspace*{2ex}} % White space under highlighted (alert) blocks
-
-\setlength{\belowcaptionskip}{2ex} % White space under figures
-\setlength\belowdisplayshortskip{2ex} % White space under equations
-
-\begin{frame}[t] % The whole poster is enclosed in one beamer frame
-
-\begin{columns}[t] % The whole poster consists of three major columns, the second of which is split into two columns twice - the [t] option aligns each column's content to the top
-
-\begin{column}{\sepwid}\end{column} % Empty spacer column
-
-\begin{column}{\onecolwid} % The first column
-
 %----------------------------------------------------------------------------------------
-%   OBJECTIVES
+%   POSTER HEADER 
 %----------------------------------------------------------------------------------------
 
-\begin{alertblock}{Objectives}
+% The header is divided into two boxes:
+% The first is 75% wide and houses the title, subtitle, names, university/organization and contact information
+% The second is 25% wide and houses a logo for your university/organization or a photo of you
+% The widths of these boxes can be easily edited to accommodate your content as you see fit
 
-Lorem ipsum dolor sit amet, consectetur, nunc tellus pulvinar tortor, commodo eleifend risus arcu sed odio:
-\begin{itemize}
-\item Mollis dignissim, magna augue tincidunt dolor, interdum vestibulum urna
-\item Sed aliquet luctus lectus, eget aliquet leo ullamcorper consequat. Vivamus eros sem, iaculis ut euismod non, sollicitudin vel orci.
-\item Nascetur ridiculus mus.  
-\item Euismod non erat. Nam ultricies pellentesque nunc, ultrices volutpat nisl ultrices a.
-\end{itemize}
+%\veryHuge {EVONET18 \hfill MPI-PKS, DRESDEN \hfill Jun 18 - 22, 2018} \\ [1cm]
+\begin{minipage}{\linewidth}
+\Large EVONET18 \hfill Max Plank Institut Für Physik Komplexer Systeme, Dresden \hfill Jun 18 - 22, 2018 \\ [1cm]
+\end{minipage}
 
-\end{alertblock}
+\begin{minipage}[b]{0.75\linewidth}
+\veryHuge \color{NavyBlue} \textbf{Arrow of Time from \\ [0.5cm] Spontaneous Symmetry Breaking in LQG} \color{Black}\\[0.5cm] % Title
+%\Huge\textit{An Exploration of Complexity}\\[2cm] % Subtitle
+\huge \textbf{Deepak Vaid}\\[0.5cm] % Author(s)
+\Large Department of Physics \\ National Institute of Technology Karnataka (NITK), India\\[0.4cm] % University/organization
+\Large \texttt{dvaid79@gmail.com}\\
+\end{minipage}
+%
+\hspace*{-5in}
+\begin{minipage}[b]{0.125\linewidth}
+\includegraphics[width=\linewidth]{evonet18_logo.png}
+\end{minipage}
+%\hspace*{-1in}
+\begin{minipage}[b]{0.125\linewidth}
+\includegraphics[width=\linewidth]{mpipks_logo.png}
+\end{minipage}
+\hspace*{0.5in}
+\begin{minipage}[b]{0.125\linewidth}
+\includegraphics[width=\linewidth]{nitk_logo_color_v1.png}
+\end{minipage}
+
+\vspace{1cm} % A bit of extra whitespace between the header and poster content
+
+%----------------------------------------------------------------------------------------
+
+\begin{multicols}{2} % This is how many columns your poster will be broken into, a portrait poster is generally split into 2 columns
+
+%----------------------------------------------------------------------------------------
+%   ABSTRACT
+%----------------------------------------------------------------------------------------
+
+\color{Navy} % Navy color for the abstract
+
+%\large
+%\normalsize
+
+\begin{abstract}
+\large
+The question of the origin time's arrow is a major outstanding problem in physics. Here we present a possible mechanism for generation of a cosmological arrow via spontaneous symmetry breaking in a theory of quantum gravity. In \cite{Chen2015Gauging}, Chen and Vishwanath have shown that a local notion of time-reversal symmetry can be encoded into a gauge field living on a tensor network. Using the fact that tensor networks can be used to describe the state space of Loop Quantum Gravity \cite{Qi2013Exact,Han2016Loop} we show that a spontaneous symmetry breaking mechanism operating on such tensor networks can lead to the spontaneous generation of an arrow of time corresponding to the generation of non-zero order parameter for the Chen-Vishwanath gauge field.
+
+\end{abstract}
 
 %----------------------------------------------------------------------------------------
 %   INTRODUCTION
 %----------------------------------------------------------------------------------------
 
-\begin{block}{Introduction}
+\large
 
-Lorem ipsum dolor \textbf{sit amet}, consectetur adipiscing elit. Sed commodo molestie porta. Sed ultrices scelerisque sapien ac commodo. Donec ut volutpat elit. Sed laoreet accumsan mattis. Integer sapien tellus, auctor ac blandit eget, sollicitudin vitae lorem. Praesent dictum tempor pulvinar. Suspendisse potenti. Sed tincidunt varius ipsum, et porta nulla suscipit et. Etiam congue bibendum felis, ac dictum augue cursus a. \textbf{Donec} magna eros, iaculis sit amet placerat quis, laoreet id est. In ut orci purus, interdum ornare nibh. Pellentesque pulvinar, nibh ac malesuada accumsan, urna nunc convallis tortor, ac vehicula nulla tellus eget nulla. Nullam lectus tortor, \textit{consequat tempor hendrerit} quis, vestibulum in diam. Maecenas sed diam augue.
+%\color{SaddleBrown} % SaddleBrown color for the introduction
+%
+%\section*{Time-Reversal in Classical Mechanics}
+%
+%The effect of time-reversal on classical observables is given by:
+%
+%%\begin{figure}
+%%	\centering
+%\begin{center}
+%%	\centering
+%	\begin{xtabular}{l|l}
+%	\toprule
+%	Physical Observables & Under time reversal\\
+%	\midrule
+%	Position &  $ \vect{x} \rightarrow \vect{x} $ \\
+%	Time & $  t \rightarrow -t$\\
+%	Linear Momentum & $ \vect{p} \rightarrow -\vect{p} = d\vect{x}/d(-t) = - d\vect{x}/dt$\\
+%	Angular Momentum & $  \vect{l} = \vect{x} \times \vect{p} \rightarrow -\vect{l} $ \\
+%	Energy/Hamiltonian & $  H(\vect{x},\vect{p}) \rightarrow H(\vect{x}, -\vect{p}) $ \\
+%	Electric Field & $  E^i \rightarrow -E^i$\\
+%	Magnetic Field & $  B^i \rightarrow - B^i $\\
+%	\bottomrule
+%	%\captionof{table}{\color{Green} Table caption}
+%	\end{xtabular}
+%\end{center}
+%\end{figure}
 
-Lorem ipsum dolor \textbf{sit amet}, consectetur adipiscing elit. Sed commodo molestie porta. Sed ultrices scelerisque sapien ac commodo. Donec ut volutpat elit. Sed laoreet accumsan mattis. Integer sapien tellus, auctor ac blandit eget, sollicitudin vitae lorem. Praesent dictum tempor pulvinar. Suspendisse potenti. Sed tincidunt varius ipsum, et porta nulla suscipit et. Etiam congue bibendum felis, ac dictum augue cursus a.
+%\color{DarkSlateGray} % DarkSlateGray color for the rest of the content
 
-This statement requires citation \cite{Smith:2012qr}.
+%\color{Navy}
 
-\end{block}
+%\color{Indigo}
+
+%\color{DarkGreen}
+
+\color{DarkRed}
+
+\section*{Time Reversal in Quantum Mechanics}
+
+\begin{center}
+%	\centering
+	\begin{xtabular}{l|c}
+	\toprule
+	Operators: & $ \vect{\hat{x}} \rightarrow \vect{\hat{x}}; \quad \vect{\hat{p}} \rightarrow -\vect{\hat{p}} $ \\
+	Commutators: & 	$ \left[ \hat{x}_i, \hat{p}_j \right] = i \hbar \delta_{ij} \rightarrow \left[\hat{x}'_i, \hat{p}'_j \right] = - i \hbar \delta_{ij} $ \\
+	Equation of motion & $ i \hbar \frac{\partial \psi}{\partial t} =  \hat{H} \psi \rightarrow i \hbar \frac{\partial \psi}{\partial t'} =  - \hat{H} \psi $ \\
+	\bottomrule
+	\end{xtabular}
+\end{center}
+
+where $ t' = -t $. Define Wigner quantum time reversal operator:
+\begin{equation}\label{eqn:wigner-time-reversal}
+	\mc{T} ( c_1 \psi_1 + c_2 \psi_2 ) = c_1^* \mc{T} \psi_1 + c_2^* \mc{T} \psi_2
+\end{equation}
+Such an operator is called \emph{anti-linear} or \emph{anti-unitary}. Acting with this operator on both sides of the Schrodinger equation we obtain:
+\begin{equation}\label{eqn:trs-schrodinger-2}
+	\mc{T} \left( i \hbar \frac{\partial \psi}{\partial t} \right) = i \hbar \frac{\partial (\mc{T} \psi)}{\partial t'} = H (\mc{T} \psi)
+\end{equation}
+Under $ \mc{T} $, the quantum commutators no longer change sign:
+\begin{equation}\label{eqn:quantum-poisson-2}
+	\mc{T} \left(\left[ \hat{x}_i, \hat{p}_j \right]\right) \mc{T}^{-1} = \mc{T} i \mc{T}^{-1} \hbar \delta_{ij} \rightarrow \left[\hat{x}'_i, \hat{p}'_j \right]= i \hbar \delta_{ij}
+\end{equation}
+
+%----------------------------------------------------------------------------------------
+%   OBJECTIVES
+%----------------------------------------------------------------------------------------
+
+\vspace*{-1cm}
+
+%\color{SaddleBrown}
+
+%\color{DarkRed}
+
+\color{DarkGreen}
+
+%\color{DeepPink}
+
+\section*{Time Reversal of Many Body State}
+
+\begin{equation}\label{eqn:many-body-state}
+	\ket{\psi} = \sum_{i_1, i_2, \ldots, i_N} C_{i_1, i_2, \ldots, i_N} \ket{i_1, i_2, \ldots, i_N}
+\end{equation}
+Co-efficients $  C_{i_1, i_2, \ldots, i_N} $ are defined over the entire Hilbert space and cannot be decomposed into local contributions in any simple manner. Global action of time-reversal is well defined
+\begin{equation}\label{eqn:trs-many-body-state}
+	\mc{T} \ket{\psi} = \sum_{i_1, i_2, \ldots, i_N} C^*_{i_1, i_2, \ldots, i_N} U_1 \otimes \ldots \otimes U_N \ket{i_1, i_2, \ldots, i_N}
+\end{equation}
+but local action is not clear, because $ C_{i_1, i_2, \ldots, i_N} $ cannot be simply split into sum of local pieces. To do so, we need matrix product states.
+
+%----------------------------------------------------------------------------------------
+%   MATERIALS AND METHODS
+%----------------------------------------------------------------------------------------
+
+%\color{DarkSlateGray}
+
+\color{Navy}
+
+\section*{Matrix Product State}
+
+Following Bridgeman and Chubbs \cite{Bridgeman2016Hand-waving}:
+\begin{equation}\label{eqn:mps-ansatz}
+	\ket{\psi} = \sum_{i_1, i_2, \ldots, i_N} \Tr\left[ A^{(1)}_{i_1} A^{(2)}_{i_2} \ldots A^{(N)}_{i_N} \right] \ket{i_1, i_2, \ldots, i_N}
+\end{equation}
+
+\vspace*{2cm}
+
+\begin{minipage}[m]{0.4\columnwidth}
+	\centering
+	\includegraphics[width=0.5\linewidth]{mps-vertex}
+%	\captionof{figure}{Single vertex of a matrix product state. Internal indices are denoted by $ \alpha, \beta $. Physical indices by $ i,j,\ldots $}
+	\label{fig:mps-vertex}
+\end{minipage}
+\begin{minipage}[m]{0.4\columnwidth}
+	$ A^k_{i_k;\alpha\beta} $: Single vertex of a matrix product state. Internal indices are denoted by $ \alpha, \beta $. Physical indices by $ i,j,\ldots $
+\end{minipage}
+
+\vspace*{2cm}
+
+\begin{minipage}[m]{0.45\linewidth}
+	\centering
+	\includegraphics[width=0.6\linewidth]{mps-vertex-product}
+	\captionof*{figure}{A connection between two adjacent vertices corresponds to multiplying the associated matrices.}
+	\label{fig:mps-vertex-product}
+\end{minipage}
+\begin{minipage}[m]{0.45\linewidth}
+	\centering
+	\includegraphics[width=0.6\linewidth]{mps-vertex-product-trace}
+	\captionof*{figure}{To take the trace we complete the loop by connecting the first and last vertices}
+	\label{fig:mps-vertex-product-trace}
+\end{minipage}
+
+%\begin{minipage}[t]{\linewidth}
+%\begin{align}
+\begin{minipage}[m]{0.3\columnwidth}
+	$$ \ket{\psi} = \sum_{i_1, i_2, \ldots, i_5} \Tr\left[ A^{(1)}_{i_1} A^{(2)}_{i_2} \ldots A^{(N)}_{i_5} \right] \ket{i_1, i_2, \ldots, i_5} = $$
+\end{minipage}
+\begin{minipage}[m]{0.4\columnwidth}
+	\hspace*{8cm}\includegraphics[width=1.0\linewidth]{mps-state}
+\end{minipage}
+%	 & = \vspace*{2cm}\includegraphics[width=0.5\linewidth]{mps-state} \nonumber
+%\end{align}
+%	\includegraphics[width=0.7\linewidth]{mps-state}
+%\end{minipage}
+
+%\vfill
+\vspace*{2cm}
+
+\color{DarkRed}
+
+\section*{Tensor Network State on Arbitrary Graphs}
+
+\begin{center}
+	\begin{tabular}{|c|c|p{15cm}|}
+		\toprule
+		Vertex Tensors & $ T^v_{i_v; \alpha_1 \ldots \alpha_{v_k}} $ & $ v: $ vertex \newline $i_v$: vertex state/physical index \newline $\alpha_1 .. \alpha_k$: internal (``bond'') indices \\
+		\midrule
+		Edge Tensors & $ g^e_{i_e; \alpha\beta} $ &  $ e $: edge label \newline $i_e:$ edge state/physical index \newline $\alpha, \beta $: bonding indices \\
+		\bottomrule
+	\end{tabular}
+\end{center}
+
+\begin{minipage}{\linewidth}
+	\begin{equation*}
+		\boxed{	\ket{\Psi} = \sum_{\{i_1,\ldots,i_{n_v}\}, \{ j_1,\ldots,j_{n_e} \} } \Tr\left[ \prod_{v \in \Gamma} T^v_{i_v} \prod_{e \in \Gamma} g^e_{j_e} \right] \ket{i_1,\ldots,i_{n_v}; j_1, \ldots, j_{n_e} }}
+	\end{equation*}
+\end{minipage}
+
+%\vspace*{2cm}
+
+\color{Black}
+
+%\color{DarkGreen}
+
+\section*{Gauge Transformations}
+
+\begin{minipage}[m]{0.35\linewidth}
+	\centering
+	\includegraphics[width=\linewidth]{mps-gauge-action-v2}
+	\captionof*{figure}{Global gauge rotation of two-site MPS state}
+\end{minipage}
+=
+\begin{minipage}[m]{0.3\linewidth}
+	\includegraphics[width=\linewidth]{mps-gauge-action-v3}
+	\captionof*{figure}{All the rotations in the interior cancel out and we are left with only two occurrences at the either end of the chain.}
+\end{minipage}
+=
+\begin{minipage}[m]{0.3\columnwidth}
+	\includegraphics[width=0.6\linewidth]{mps-gauge-action-v4}
+	\captionof*{figure}{On taking the trace, the remaining two matrices cancel, leaving us the original state.}
+\end{minipage}
+
+%\vfill
+\vspace*{2cm}
+
+\begin{minipage}[m]{0.45\columnwidth}
+	\centering
+	\includegraphics[width=0.6\linewidth]{mps-gauge-action}
+	\captionof*{figure}{Action of gauge rotation on single site of MPS: $ A^1~\rightarrow~M (A^1) M^{-1} $}
+\end{minipage}
+\begin{minipage}[m]{0.45\columnwidth}
+	\centering
+	\includegraphics[width=1\linewidth]{local-symmetry-flux}
+	\captionof*{figure}{Insertion of a single symmetry flux: $ A^2 \rightarrow M (A^2) $}
+\end{minipage}
+
+\section*{Gauging Time Reversal Symmetry}
+
+Action of time-reversal on a \emph{single} system: $ \mc{T} = UK $, where $ K $ is complex conjugation, and $ U $ is some unitary.
+
+For a single spin $ U = i\sigma_y $. State $ \ket{\psi} = \alpha \ket{0} + \beta \ket{1} \rightarrow i\sigma_y \ket{\psi}^* = \alpha^* \ket{1} - \beta^*\ket{0} $
+
+Local TRS action on $ k^\text{th} $ site of MPS:
+\[ \mc{T}_k \ket{\Psi}_{MPS} = \sum_{i_1, i_2, \ldots, i_N} \Tr\left[ A^{1}_{i_1},\ldots,\tilde{A}^k,\ldots, A^{N}_{i_N} \right] \ket{i_1, \ldots, (i\sigma_y) i_k, \ldots, i_N} \]
+where $ \tilde{A}^k = (iY)(A^{k})(-iY) $
+
+%\vspace*{1cm}
 
 %------------------------------------------------
 
-\begin{figure}
-\includegraphics[width=0.8\linewidth]{area_puncture}
-\caption{Figure caption}
-\end{figure}
+%\color{DarkSlateGray}
+
+%\color{Navy}
+
+%\color{DarkGreen}
+
+\section*{Spin Networks}
+
+\begin{minipage}[t]{0.45\linewidth}
+	\centering
+%	\vspace{1cm}
+	\includegraphics[width=0.5\linewidth]{area_puncture}
+	\captionof*{figure}{Quantum of area from single puncture}
+%	\vspace{1cm}
+\end{minipage}
+\begin{minipage}[t]{0.45\linewidth}
+	\centering
+%	\vspace{1cm}
+	\includegraphics[width=0.6\linewidth]{area_punctures}
+	\captionof*{figure}{Many punctures generate macroscopic areas}
+%	\vspace{1cm}
+\end{minipage}
+
 
 %----------------------------------------------------------------------------------------
-
-\end{column} % End of the first column
-
-\begin{column}{\sepwid}
-\end{column} % Empty spacer column
-
-\begin{column}{\twocolwid} % Begin a column which is two columns wide (column 2)
-
-\begin{columns}[t,totalwidth=\twocolwid] % Split up the two columns wide column
-
-\begin{column}{\onecolwid}\vspace{-.6in} % The first column within column 2 (column 2.1)
-
-%----------------------------------------------------------------------------------------
-%   MATERIALS
+%   CONCLUSIONS
 %----------------------------------------------------------------------------------------
 
-\begin{block}{Materials}
+%\color{SaddleBrown} % SaddleBrown color for the conclusions to make them stand out
 
-The following materials were required to complete the research:
+\color{DarkBlue}
+
+\section*{Conclusions}
 
 \begin{itemize}
-\item Curabitur pellentesque dignissim
-\item Eu facilisis est tempus quis
-\item Duis porta consequat lorem
-\item Eu facilisis est tempus quis
+	\item 
 \end{itemize}
 
-The materials were prepared according to the steps outlined below:
-
-\begin{enumerate}
-\item Curabitur pellentesque dignissim
-\item Eu facilisis est tempus quis
-\item Duis porta consequat lorem
-\item Curabitur pellentesque dignissim
-\end{enumerate}
-
-\end{block}
+%\color{DarkSlateGray} % Set the color back to DarkSlateGray for the rest of the content
 
 %----------------------------------------------------------------------------------------
-
-\end{column} % End of column 2.1
-
-\begin{column}{\onecolwid}\vspace{-.6in} % The second column within column 2 (column 2.2)
-
-%----------------------------------------------------------------------------------------
-%   METHODS
+%   FORTHCOMING RESEARCH
 %----------------------------------------------------------------------------------------
 
-\begin{block}{Methods}
+\section*{Forthcoming Research}
 
-Lorem ipsum dolor \textbf{sit amet}, consectetur adipiscing elit. Sed laoreet accumsan mattis. Integer sapien tellus, auctor ac blandit eget, sollicitudin vitae lorem. Praesent dictum tempor pulvinar. Suspendisse potenti. Sed tincidunt varius ipsum, et porta nulla suscipit et. Etiam congue bibendum felis, ac dictum augue cursus a. \textbf{Donec} magna eros, iaculis sit amet placerat quis, laoreet id est. In ut orci purus, interdum ornare nibh. Pellentesque pulvinar, nibh ac malesuada accumsan, urna nunc convallis tortor, ac vehicula nulla tellus eget nulla. Nullam lectus tortor, \textit{consequat tempor hendrerit} quis, vestibulum in diam. Maecenas sed diam augue.
-
-\end{block}
-
-%----------------------------------------------------------------------------------------
-
-\end{column} % End of column 2.2
-
-\end{columns} % End of the split of column 2 - any content after this will now take up 2 columns width
-
-%----------------------------------------------------------------------------------------
-%   IMPORTANT RESULT
-%----------------------------------------------------------------------------------------
-
-\begin{alertblock}{Important Result}
-
-Lorem ipsum dolor \textbf{sit amet}, consectetur adipiscing elit. Sed commodo molestie porta. Sed ultrices scelerisque sapien ac commodo. Donec ut volutpat elit.
-
-\end{alertblock} 
-
-%----------------------------------------------------------------------------------------
-
-\begin{columns}[t,totalwidth=\twocolwid] % Split up the two columns wide column again
-
-\begin{column}{\onecolwid} % The first column within column 2 (column 2.1)
-
-%----------------------------------------------------------------------------------------
-%   MATHEMATICAL SECTION
-%----------------------------------------------------------------------------------------
-
-\begin{block}{Mathematical Section}
-
-Nam quis odio enim, in molestie libero. Vivamus cursus mi at nulla elementum sollicitudin. Nam quis odio enim, in molestie libero. Vivamus cursus mi at nulla elementum sollicitudin.
-  
-\begin{equation}
-E = mc^{2}
-\label{eqn:Einstein}
-\end{equation}
-
-Nam quis odio enim, in molestie libero. Vivamus cursus mi at nulla elementum sollicitudin. Nam quis odio enim, in molestie libero. Vivamus cursus mi at nulla elementum sollicitudin.
-
-\begin{equation}
-\cos^3 \theta =\frac{1}{4}\cos\theta+\frac{3}{4}\cos 3\theta
-\label{eq:refname}
-\end{equation}
-
-Nam quis odio enim, in molestie libero. Vivamus cursus mi at nulla elementum sollicitudin. Nam quis odio enim, in molestie libero. Vivamus cursus mi at nulla elementum sollicitudin.
-
-\begin{equation}
-\kappa =\frac{\xi}{E_{\mathrm{max}}} %\mathbb{ZNR}
-\end{equation}
-
-Nam quis odio enim, in molestie libero. Vivamus cursus mi at nulla elementum sollicitudin. Nam quis odio enim, in molestie libero. Vivamus cursus mi at nulla elementum sollicitudin.
-
-\end{block}
-
-%----------------------------------------------------------------------------------------
-
-\end{column} % End of column 2.1
-
-\begin{column}{\onecolwid} % The second column within column 2 (column 2.2)
-
-%----------------------------------------------------------------------------------------
-%   RESULTS
-%----------------------------------------------------------------------------------------
-
-\begin{block}{Results}
-
-\begin{figure}
-\includegraphics[width=0.8\linewidth]{area_punctures}
-\caption{Figure caption}
-\end{figure}
-
-Nunc tempus venenatis facilisis. Curabitur suscipit consequat eros non porttitor. Sed a massa dolor, id ornare enim:
-
-Nunc tempus venenatis facilisis. Curabitur suscipit consequat eros non porttitor. Sed a massa dolor, id ornare enim:
-
-Nunc tempus venenatis facilisis. Curabitur suscipit consequat eros non porttitor. Sed a massa dolor, id ornare enim:
-
-Nunc tempus venenatis facilisis. Curabitur suscipit consequat eros non porttitor. Sed a massa dolor, id ornare enim:
-
-\begin{table}
-\vspace{2ex}
-\begin{tabular}{l l l}
-\toprule
-\textbf{Treatments} & \textbf{Res. 1} & \textbf{Res. 2}\\
-\midrule
-Treatment 1 & 0.0003262 & 0.562 \\
-Treatment 2 & 0.0015681 & 0.910 \\
-Treatment 3 & 0.0009271 & 0.296 \\
-\bottomrule
-\end{tabular}
-\caption{Table caption}
-\end{table}
-
-\end{block}
-
-%----------------------------------------------------------------------------------------
-
-%\end{column} % End of column 2.2
-%
-%\end{columns} % End of the split of column 2
-
-%----------------------------------------------------------------------------------------
-%   CONCLUSION
-%----------------------------------------------------------------------------------------
-
-\begin{block}{Conclusion}
-
-Nunc tempus venenatis facilisis. \textbf{Curabitur suscipit} consequat eros non porttitor. Sed a massa dolor, id ornare enim. Fusce quis massa dictum tortor \textbf{tincidunt mattis}. Donec quam est, lobortis quis pretium at, laoreet scelerisque lacus. Nam quis odio enim, in molestie libero. Vivamus cursus mi at \textit{nulla elementum sollicitudin}.
-
-Nunc tempus venenatis facilisis. Curabitur suscipit consequat eros non porttitor. Sed a massa dolor, id ornare enim.
-
-\end{block}
-
-\end{column} % End of the third column
-
-\end{columns} % End of all the columns in the poster
-
-\begin{columns}[t,totalwidth=\twocolwid] % Split up the two columns wide column again
-
-\begin{column}{\twocolwid} % The first column within column 2 (column 2.1)
-
-
-%----------------------------------------------------------------------------------------
-%   ADDITIONAL INFORMATION
-%----------------------------------------------------------------------------------------
-
-\begin{block}{Additional Information}
-
-Maecenas ultricies feugiat velit non mattis. Fusce tempus arcu id ligula varius dictum. 
-\begin{itemize}
-\item Curabitur pellentesque dignissim
-\item Eu facilisis est tempus quis
-\item Duis porta consequat lorem
-\end{itemize}
-
-Maecenas ultricies feugiat velit non mattis. Fusce tempus arcu id ligula varius dictum. 
-\begin{itemize}
-\item Curabitur pellentesque dignissim
-\item Eu facilisis est tempus quis
-\item Duis porta consequat lorem
-\end{itemize}
-
-\end{block}
-
-%----------------------------------------------------------------------------------------
+ %----------------------------------------------------------------------------------------
 %   REFERENCES
 %----------------------------------------------------------------------------------------
 
-\begin{block}{References}
+%\nocite{*} % Print all references regardless of whether they were cited in the poster or not
+%\bibliographystyle{plain} % Plain referencing style
+%\bibliography{../../articles/bib_library} % Use the example bibliography file sample.bib
 
-\nocite{*} % Insert publications even if they are not cited in the poster
-\small{\bibliographystyle{unsrt}
-\bibliography{sample}\vspace{0.75in}}
-
-\end{block}
 
 %----------------------------------------------------------------------------------------
 %   ACKNOWLEDGEMENTS
 %----------------------------------------------------------------------------------------
 
-\setbeamercolor{block title}{fg=red,bg=white} % Change the block title color
+\section*{Acknowledgements}
 
-\begin{block}{Acknowledgements}
-
-\small{\rmfamily{Nam mollis tristique neque eu luctus. Suspendisse rutrum congue nisi sed convallis. Aenean id neque dolor. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.}} \\
-
-\end{block}
-
-%----------------------------------------------------------------------------------------
-%   CONTACT INFORMATION
-%----------------------------------------------------------------------------------------
-
-\setbeamercolor{block alerted title}{fg=black,bg=norange} % Change the alert block title colors
-\setbeamercolor{block alerted body}{fg=black,bg=white} % Change the alert block body colors
-
-\begin{alertblock}{Contact Information}
-
-\begin{itemize}
-\item Web: \href{http://www.my.edu/smithlab}{http://www.my.edu/smithlab}
-\item Email: \href{mailto:john@smith.com}{john@smith.com}
-\item Phone: +1 (000) 111 1111
-\end{itemize}
-
-\end{alertblock}
-
-\begin{center}
-\begin{tabular}{ccc}
-\includegraphics[width=0.4\linewidth]{mpipks_logo.png} & \hfill & \includegraphics[width=0.4\linewidth]{nitk_logo.png}
-\end{tabular}
-\end{center}
-
-\end{column}
-
-\end{columns}
+Etiam fermentum, arcu ut gravida fringilla, dolor arcu laoreet justo, ut imperdiet urna arcu a arcu. Donec nec ante a dui tempus consectetur. Cras nisi turpis, dapibus sit amet mattis sed, laoreet.
 
 %----------------------------------------------------------------------------------------
 
-%
+\printbibliography[title={References}]
 
-\end{frame} % End of the enclosing frame
-
+\end{multicols}
 \end{document}
