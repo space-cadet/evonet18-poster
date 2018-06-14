@@ -153,7 +153,7 @@
 
 %----------------------------------------------------------------------------------------
 
-\begin{multicols}{2} % This is how many columns your poster will be broken into, a portrait poster is generally split into 2 columns
+\begin{multicols}{3} % This is how many columns your poster will be broken into, a portrait poster is generally split into 2 columns
 
 %----------------------------------------------------------------------------------------
 %   ABSTRACT
@@ -165,7 +165,7 @@
 %\normalsize
 
 \begin{abstract}
-\large
+%\large
 The question of the origin time's arrow is a major outstanding problem in physics. Here we present a possible mechanism for generation of a cosmological arrow via spontaneous symmetry breaking in a theory of quantum gravity. In \cite{Chen2015Gauging}, Chen and Vishwanath have shown that a local notion of time-reversal symmetry can be encoded into a gauge field living on a tensor network. Using the fact that tensor networks can be used to describe the state space of Loop Quantum Gravity \cite{Qi2013Exact,Han2016Loop} we show that a spontaneous symmetry breaking mechanism operating on such tensor networks can lead to the spontaneous generation of an arrow of time corresponding to the generation of non-zero order parameter for the Chen-Vishwanath gauge field.
 
 \end{abstract}
@@ -174,7 +174,7 @@ The question of the origin time's arrow is a major outstanding problem in physic
 %   INTRODUCTION
 %----------------------------------------------------------------------------------------
 
-\large
+%\large
 
 %\color{SaddleBrown} % SaddleBrown color for the introduction
 %
@@ -320,14 +320,14 @@ Following Bridgeman and Chubbs \cite{Bridgeman2016Hand-waving}:
 %\end{minipage}
 
 %\vfill
-\vspace*{2cm}
+%\vspace*{2cm}
 
 \color{DarkRed}
 
 \section*{Tensor Network State on Arbitrary Graphs}
 
 \begin{center}
-	\begin{tabular}{|c|c|p{15cm}|}
+	\begin{tabular}{|c|c|p{14cm}|}
 		\toprule
 		Vertex Tensors & $ T^v_{i_v; \alpha_1 \ldots \alpha_{v_k}} $ & $ v: $ vertex \newline $i_v$: vertex state/physical index \newline $\alpha_1 .. \alpha_k$: internal (``bond'') indices \\
 		\midrule
@@ -336,17 +336,58 @@ Following Bridgeman and Chubbs \cite{Bridgeman2016Hand-waving}:
 	\end{tabular}
 \end{center}
 
-\begin{minipage}{\linewidth}
-	\begin{equation*}
-		\boxed{	\ket{\Psi} = \sum_{\{i_1,\ldots,i_{n_v}\}, \{ j_1,\ldots,j_{n_e} \} } \Tr\left[ \prod_{v \in \Gamma} T^v_{i_v} \prod_{e \in \Gamma} g^e_{j_e} \right] \ket{i_1,\ldots,i_{n_v}; j_1, \ldots, j_{n_e} }}
-	\end{equation*}
-\end{minipage}
+%\begin{minipage}{0.4\columnwidth}
+%\mbox{
+%\begin{equation*}
+%\end{equation*}
+%}
+%\end{minipage}
 
-%\vspace*{2cm}
+%\vspace*{0.5cm}
+\resizebox{\columnwidth}{!}{ \framebox{ $
+\ket{\Psi} = \underset{\{i_1,\ldots,i_{n_v}\}, \{ j_1,\ldots,j_{n_e} \}}{\sum} \Tr\left[ \underset{v \in \Gamma}\prod T^v_{i_v} \underset{e \in \Gamma}\prod g^e_{j_e} \right] \ket{i_1,\ldots,i_{n_v}; j_1, \ldots, j_{n_e} } $
+}}
+
+%\vspace*{-57pt}
+
+\columnbreak
+
+%\color{Navy}
+
+\color{DarkGreen}
+
+\section*{Dangling Indices: Bulk vs Boundary d.o.f.}
+
+\normalsize
+
+States with \emph{\textbf{dangling indices}}, \ie physical degrees of freedom which are not traced over, represent physical states of quantum geometry. Consider the MPS for a two-site system as before:
+
+%\vspace*{1cm}
+
+\begin{minipage}[m]{0.45\linewidth}
+	\centering
+	\includegraphics[width=0.7\linewidth]{mps-vertex-product}
+%	\captionof*{figure}{}
+%	\label{fig:mps-vertex-product}
+\end{minipage}
+\begin{minipage}[m]{0.45\linewidth}
+%	\centering
+	$$ \ket{\Psi_{\alpha\beta}}= \sum_{\{i_1, i_2\}} A^1_{i_1;\alpha\gamma} A^2_{i_2;\gamma\beta} \ket{i_1, i_2} $$
+\end{minipage}
+Now the state is a two-index object. Likewise if the graph has $ n $ dangling edges, then the resulting state will also have $ n $ indices of size equal to the bond dimension. Consider a graph $ \Gamma $, which has a subset of $ n $ vertices which are connected to only a single edge, each. These vertices and their accompanying edges $ \{ v_1,\ldots,v_n; e_1, \ldots, e_n \} $ form a subset $ \partial \Gamma \subset \Gamma $
+
+\vspace*{1cm}
+\resizebox{\columnwidth}{!}{ \framebox{ $
+\ket{\Psi} = \underset{\{i_1,\ldots,i_{n_v}\}, \{ j_1,\ldots,j_{n_e} \}}{\sum} \left[ \underset{v \in \Gamma}\prod T^v_{i_v} \underset{e \in \Gamma}\prod g^e_{j_e} \right] \ket{i_1,\ldots,i_{n_v}; j_1, \ldots, j_{n_e} } $
+}}
+
+%\columnbreak
 
 \color{Black}
 
 %\color{DarkGreen}
+
+%\large
 
 \section*{Gauge Transformations}
 
@@ -380,14 +421,29 @@ Following Bridgeman and Chubbs \cite{Bridgeman2016Hand-waving}:
 	\captionof*{figure}{Insertion of a single symmetry flux: $ A^2 \rightarrow M (A^2) $}
 \end{minipage}
 
+%\color{DarkGreen}
+
+\color{DarkRed}
+
 \section*{Gauging Time Reversal Symmetry}
+
+\normalsize
 
 Action of time-reversal on a \emph{single} system: $ \mc{T} = UK $, where $ K $ is complex conjugation, and $ U $ is some unitary.
 
 For a single spin $ U = i\sigma_y $. State $ \ket{\psi} = \alpha \ket{0} + \beta \ket{1} \rightarrow i\sigma_y \ket{\psi}^* = \alpha^* \ket{1} - \beta^*\ket{0} $
 
 Local TRS action on $ k^\text{th} $ site of MPS:
-\[ \mc{T}_k \ket{\Psi}_{MPS} = \sum_{i_1, i_2, \ldots, i_N} \Tr\left[ A^{1}_{i_1},\ldots,\tilde{A}^k,\ldots, A^{N}_{i_N} \right] \ket{i_1, \ldots, (i\sigma_y) i_k, \ldots, i_N} \]
+
+\vspace*{1cm}
+
+\resizebox{\columnwidth}{!}{ \framebox{
+$ \mc{T}_k \ket{\Psi}_{MPS} = \sum_{i_1, i_2, \ldots, i_N} \Tr\left[ A^{1}_{i_1},\ldots,\tilde{A}^k,\ldots, A^{N}_{i_N} \right] \ket{i_1, \ldots, (i\sigma_y) i_k, \ldots, i_N} $
+}
+}
+
+\vspace*{1cm}
+
 where $ \tilde{A}^k = (iY)(A^{k})(-iY) $
 
 %\vspace*{1cm}
@@ -396,9 +452,19 @@ where $ \tilde{A}^k = (iY)(A^{k})(-iY) $
 
 %\color{DarkSlateGray}
 
-%\color{Navy}
+\color{Navy}
 
 %\color{DarkGreen}
+
+%\color{SaddleBrown}
+\begin{minipage}[t]{0.45\linewidth}
+	\includegraphics[width=0.9\columnwidth]{symmetry-flux-line-2d}
+	\captionof*{figure}{Applying constant gauge transformation to given region, leaves symmetry flux insertions along boundary of region.}
+\end{minipage}
+\begin{minipage}[t]{0.45\linewidth}
+	\includegraphics[width=0.9\columnwidth]{symmetry-flux-twist-2d}
+	\captionof*{figure}{Insertion of a symmetry flux twist only along one line}
+\end{minipage}
 
 \section*{Spin Networks}
 
@@ -424,7 +490,9 @@ where $ \tilde{A}^k = (iY)(A^{k})(-iY) $
 
 %\color{SaddleBrown} % SaddleBrown color for the conclusions to make them stand out
 
-\color{DarkBlue}
+%\color{DarkBlue}
+
+\color{SaddleBrown}
 
 \section*{Conclusions}
 
@@ -455,7 +523,7 @@ where $ \tilde{A}^k = (iY)(A^{k})(-iY) $
 
 \section*{Acknowledgements}
 
-Etiam fermentum, arcu ut gravida fringilla, dolor arcu laoreet justo, ut imperdiet urna arcu a arcu. Donec nec ante a dui tempus consectetur. Cras nisi turpis, dapibus sit amet mattis sed, laoreet.
+I thank IUCAA (Inter-University Centre for Astronomy and Astrophysics) located in Pune, India, for their support and hospitality under the ``Visiting Associate'' program, where this work was undertaken. I thank NITK, Surathkal for support under CPDA travel grant.
 
 %----------------------------------------------------------------------------------------
 
