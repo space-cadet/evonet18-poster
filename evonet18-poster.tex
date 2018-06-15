@@ -374,12 +374,20 @@ States with \emph{\textbf{dangling indices}}, \ie physical degrees of freedom wh
 %	\centering
 	$$ \ket{\Psi_{\alpha\beta}}= \sum_{\{i_1, i_2\}} A^1_{i_1;\alpha\gamma} A^2_{i_2;\gamma\beta} \ket{i_1, i_2} $$
 \end{minipage}
-Now the state is a two-index object. Likewise if the graph has $ n $ dangling edges, then the resulting state will also have $ n $ indices of size equal to the bond dimension. Consider a graph $ \Gamma $, which has a subset of $ n $ vertices which are connected to only a single edge, each. These vertices and their accompanying edges $ \{ v_1,\ldots,v_n; e_1, \ldots, e_n \} $ form a subset $ \partial \Gamma \subset \Gamma $
+Now the state is a two-index object. Likewise if the graph has $ n $ dangling edges, then the resulting state will also have $ n $ indices of size equal to the bond dimension. Consider a graph $ \Gamma $, which has a subset of $ n $ vertices which are connected to only a single edge, each. These vertices and their accompanying edges $ \{ v_1,\ldots,v_n; e_1, \ldots, e_n \} $ form a subset $ \partial \Gamma \subset \Gamma $. Let $ \bar{\Gamma} = \Gamma/\partial \Gamma$, be the ``bulk'' of the graph which does not have any dangling edges. Resulting state is $ n $ index object.
 
 \vspace*{1cm}
-\resizebox{\columnwidth}{!}{ \framebox{ $
-\ket{\Psi} = \underset{\{i_1,\ldots,i_{n_v}\}, \{ j_1,\ldots,j_{n_e} \}}{\sum} \left[ \underset{v \in \Gamma}\prod T^v_{i_v} \underset{e \in \Gamma}\prod g^e_{j_e} \right] \ket{i_1,\ldots,i_{n_v}; j_1, \ldots, j_{n_e} } $
+\begin{center}
+\resizebox{0.6\columnwidth}{!}{ \framebox{ $
+\ket{\Psi_{\alpha_1,\ldots,\alpha_n}} = \ket{\Psi_\text{bulk}}\ket{\alpha_1,\ldots,\alpha_n} $
 }}
+\end{center}
+
+where:
+\begin{center}
+\resizebox{0.6\columnwidth}{!}{ \framebox{ $ \ket{\Psi_\text{bulk}} = \underset{\{i_v,j_e\} \in \bar{\Gamma}}{\sum} \left[ \underset{v \in \bar\Gamma}\prod T^v_{i_v} \underset{e \in \bar\Gamma}\prod g^e_{j_e} \right] \ket{ \{ i_v \}, \{ j_e \} } $
+}}
+\end{center}
 
 %\columnbreak
 
@@ -468,6 +476,44 @@ where $ \tilde{A}^k = (iY)(A^{k})(-iY) $
 
 \section*{Spin Networks}
 
+\begin{minipage}[m]{0.45\linewidth}
+	\centering
+	\includegraphics[width=0.6\linewidth]{spin-net-vertex}
+%	\captionof*{figure}{}
+\end{minipage}
+\begin{minipage}[m]{0.45\linewidth}
+	\small
+	Illustration of a four-valent spin-network vertex.
+	
+	Each edge is labelled with a representation $ j_k $ of $ SU(2) $.
+	
+	Face area: $ 8\pi\gamma l_p^2 \sqrt{j_k (j_k + 1)} $.
+	
+	Vertex label: $ I_v \in \text{Inv}\left[\bigotimes_{i=1}^{4} \mc{H}^{j_k} \right] \equiv \mc{H}_{\text{Inv}}$
+\end{minipage}
+
+\vspace*{1cm}
+
+\section*{Spin Network State on Arbitrary Graphs}
+
+\begin{center}
+	\begin{tabular}{|c|c|p{14cm}|}
+		\toprule
+		Vertex Tensors & $ I^v_{i_v; \alpha_1 \ldots \alpha_{v_k}} $ & $ v: $ vertex \newline $i_v$: vertex state/physical index \newline $\alpha_i \in \{ 1,..,d_i \} $; $ d_i = 2 j_i + 1 $: contracts with the state on the $ i^\text{th} $ edge joined to the vertex. \\
+		\midrule
+		Edge Tensors & $ D^e_{j_e; \alpha\beta} $ &  $ e $: edge \newline $j_e:$ $ SU(2) $ label of edge \newline $\alpha, \beta \in \{1,\ldots,(2 j_e + 1) \} $: bonding indices \\
+		\bottomrule
+	\end{tabular}
+\end{center}
+
+\resizebox{\columnwidth}{!}{ \framebox{ $
+\ket{\Psi} = \underset{\{i_v\}, \{ j_e \}}{\sum} \Tr\left[ \underset{v \in \Gamma}\prod I^v_{i_v} \underset{e \in \Gamma}\prod D^e_{j_e} \right] \ket{i_1,\ldots,i_{n_v}; j_1, \ldots, j_{n_e} } $
+}}
+
+\columnbreak
+
+\section*{Geometry from Spin Networks}
+
 \begin{minipage}[t]{0.45\linewidth}
 	\centering
 %	\vspace{1cm}
@@ -483,6 +529,48 @@ where $ \tilde{A}^k = (iY)(A^{k})(-iY) $
 %	\vspace{1cm}
 \end{minipage}
 
+\section*{CZX State - SPT with $ Z_2 $ Order in 2D}
+
+\begin{minipage}[m]{0.3\linewidth}
+	\includegraphics[width=0.9\linewidth]{czx_3by3_lattice}
+\end{minipage}
+\begin{minipage}[m]{0.65\linewidth}
+	CZX model \cite{Chen2011Symmetry,Chen2010Local} is example of 2D SPT phase with $ Z_2 $ symmetry. \newline
+	4 spins at each site; 4 neighboring spins form a plaquette. \newline
+	State is invariant under \emph{\textbf{local}} action of of $ U_{CZX} $ at each vertex
+\end{minipage}
+
+\vspace*{1cm}
+
+\begin{minipage}[m]{0.3\linewidth}
+	\includegraphics[width=0.6\linewidth]{czx_vertex_labelled}
+\end{minipage}
+\begin{minipage}[m]{0.65\linewidth}
+	$ U_{CZX} = U_X U_{CZ} $ \newline
+	$ U_X = X_1 \otimes X_2 \otimes X_3 \otimes X_4 $ \newline
+	$ U_{CZ} = (CZ)_{12} (CZ)_{23} (CZ)_{34} (CZ)_{41} $ \newline
+	$ CZ = \ket{00}\bra{00} + \ket{01}\bra{01} + \ket{10}\bra{10} - \ket{11}\bra{11} $
+\end{minipage}
+
+\vspace*{1cm}
+
+\begin{minipage}[m]{0.3\linewidth}
+	\includegraphics[width=0.4\linewidth]{czx_plaquette}
+\end{minipage}
+\begin{minipage}[m]{0.65\linewidth}
+	Each plaquette is in an entangled state: $ \ket{0000} + \ket{1111}$
+\end{minipage}
+
+\vspace*{1cm}
+
+\subsection*{Prescription for $ Z_2 $ SPT State for Quantum Geometry }
+
+\begin{enumerate}
+	\item Join spin-network 4-valent vertices to make a square lattice.
+	\item Enforce $ U_{CZX} $ symmetry at each site to generate SPT $ Z_2 $ state.
+	\item Check that resulting state satisfies LQG constraints.
+\end{enumerate}
+
 
 %----------------------------------------------------------------------------------------
 %   CONCLUSIONS
@@ -492,21 +580,21 @@ where $ \tilde{A}^k = (iY)(A^{k})(-iY) $
 
 %\color{DarkBlue}
 
-\color{SaddleBrown}
+%\color{SaddleBrown}
 
-\section*{Conclusions}
+\color{DarkGreen}
 
-\begin{itemize}
-	\item 
-\end{itemize}
+\section*{Discussion}
+
+\begin{enumerate}
+	\item Time-reversal symmetry breaking happens due to formation of $ Z_2 $ domains in spin-networks.
+	\item At ``high temperatures'', state will be disordered with no emergent macroscopic geometry.
+	\item As temperature is lowered, macroscopic volume and area states emerge
+	\item Accompanied by the formation of $ Z_2 $ domains which violate time-reversal symmetry.
+	\item To identify semiclassical field which leads to $ Z_2 $ symmetry in GR.
+\end{enumerate}
 
 %\color{DarkSlateGray} % Set the color back to DarkSlateGray for the rest of the content
-
-%----------------------------------------------------------------------------------------
-%   FORTHCOMING RESEARCH
-%----------------------------------------------------------------------------------------
-
-\section*{Forthcoming Research}
 
  %----------------------------------------------------------------------------------------
 %   REFERENCES
@@ -521,11 +609,15 @@ where $ \tilde{A}^k = (iY)(A^{k})(-iY) $
 %   ACKNOWLEDGEMENTS
 %----------------------------------------------------------------------------------------
 
+\color{DarkRed}
+
 \section*{Acknowledgements}
 
 I thank IUCAA (Inter-University Centre for Astronomy and Astrophysics) located in Pune, India, for their support and hospitality under the ``Visiting Associate'' program, where this work was undertaken. I thank NITK, Surathkal for support under CPDA travel grant.
 
 %----------------------------------------------------------------------------------------
+
+\color{Navy}
 
 \printbibliography[title={References}]
 
